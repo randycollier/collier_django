@@ -1,0 +1,7 @@
+*.pyc
+__pycache__/
+logs/*
+pgdata/*
+static/*
+
+.coverage

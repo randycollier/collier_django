@@ -1,0 +1,67 @@
+# version: '3'
+
+# services:
+#   db:
+#     image: postgres
+#   web:
+#     build: .
+#     command: python3 manage.py runserver 0.0.0.0:8000
+#     volumes:
+#       - .:/code
+#     ports:
+#       - "8000:8000"
+#     depends_on:
+#       - db
+
+version: '2'  
+services:  
+  nginx:
+    container_name: collier-nginx
+    restart: always
+    image: nginx:latest
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config/nginx:/etc/nginx/conf.d
+      - ./static:/static
+    links:
+      - web
+
+  web:
+    container_name: collier-web
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - "8080"
+    volumes:
+      - .:/src
+      - ./static:/static
+    env_file: .env-docker
+    environment:
+      DEBUG: 'true'
+    links:
+      - db
+      - redis
+
+  db:
+    container_name: collier-postgres
+    restart: always
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data/
+
+  redis:
+    container_name: collier-redis
+    restart: always
+    image: redis:latest
+    ports:
+      - '6379:6379'
+  
+  
+  
+  
+  
