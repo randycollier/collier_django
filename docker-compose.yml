@@ -48,7 +48,7 @@ services:
   db:
     container_name: collier-postgres
     restart: always
-    image: postgres:latest
+    image: mdillon/postgis:latest
     ports:
       - "5432:5432"
     volumes:

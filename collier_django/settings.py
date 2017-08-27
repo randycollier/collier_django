@@ -37,6 +37,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework_jwt',
+    'django.contrib.gis',
+    'location',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -73,10 +77,11 @@ WSGI_APPLICATION = 'collier_django.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+# 'django.db.backends.postgresql_psycopg2',
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': os.environ['DB_NAME'],
         'USER': os.environ['DB_USER'],
         'PASSWORD': os.environ['DB_PASS'],
